@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { listApplications } from "@/lib/data/applications";
-import { getSubGroupFull, verifyManageToken } from "@/lib/data/subgroups";
-import { isAdminSession } from "@/lib/session";
+import { getSubGroupFull } from "@/lib/data/subgroups";
+import { canManageSubgroup } from "@/lib/subgroup-access-server";
 
 export async function GET(
   request: Request,
@@ -10,10 +10,7 @@ export async function GET(
   const { id } = await params;
   const token = new URL(request.url).searchParams.get("token") ?? "";
 
-  const isAdmin = await isAdminSession();
-  const hasValidToken = !isAdmin && (await verifyManageToken(id, token));
-
-  if (!isAdmin && !hasValidToken) {
+  if (!(await canManageSubgroup(id, token))) {
     return NextResponse.json({ message: "접근 권한이 없습니다." }, { status: 403 });
   }
 

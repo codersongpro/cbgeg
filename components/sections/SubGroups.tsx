@@ -144,9 +144,14 @@ export function SubGroups() {
               인증 코드가 있는 회원이라면 누구나 소모임을 만들 수 있어요.
             </p>
           </div>
-          <Button size="lg" className="w-full sm:w-auto" onClick={handleCreateClick}>
-            소모임 만들기
-          </Button>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+              <a href="/subgroups/manage">내 소모임 관리</a>
+            </Button>
+            <Button size="lg" className="w-full sm:w-auto" onClick={handleCreateClick}>
+              소모임 만들기
+            </Button>
+          </div>
         </Reveal>
       </div>
 
@@ -182,8 +187,8 @@ export function SubGroups() {
                 <CheckCircle2 className="h-5 w-5" /> &ldquo;{dialog.topic}&rdquo; 소모임이 등록되었습니다.
               </p>
               <p className="text-sm text-ink-muted">
-                아래 관리 링크를 저장해두세요. 이 링크로 가입 신청 목록을 확인할 수 있어요. (다시
-                보여드리지 않으니 꼭 저장해주세요.)
+                설정한 연락처와 관리 비밀번호로 언제든지 내 소모임 관리 화면에 다시 들어올 수 있어요.
+                아래 링크는 기존 방식이 필요한 경우에만 사용할 수 있습니다.
               </p>
               <div className="break-all rounded-xl bg-ink/[0.04] p-3 font-mono text-xs text-ink">
                 {dialog.manageUrl}

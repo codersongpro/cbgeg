@@ -2,6 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 
 export const ADMIN_COOKIE = "admin_session";
 export const MEMBER_COOKIE = "member_session";
+export const CREATOR_COOKIE = "creator_session";
 
 function secretKey() {
   const secret = process.env.SESSION_SECRET;

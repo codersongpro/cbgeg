@@ -1,5 +1,5 @@
 import "server-only";
-import { firestore } from "@/lib/firebase-admin";
+import { getFirestoreDb } from "@/lib/firebase-admin";
 import type { SubGroupApplication } from "@/types";
 
 export interface CreateApplicationInput {
@@ -13,7 +13,7 @@ export async function createApplication(
   subgroupId: string,
   input: CreateApplicationInput
 ): Promise<void> {
-  await firestore
+  await getFirestoreDb()
     .collection("subgroups")
     .doc(subgroupId)
     .collection("applications")
@@ -27,7 +27,7 @@ export async function createApplication(
 }
 
 export async function listApplications(subgroupId: string): Promise<SubGroupApplication[]> {
-  const snapshot = await firestore
+  const snapshot = await getFirestoreDb()
     .collection("subgroups")
     .doc(subgroupId)
     .collection("applications")

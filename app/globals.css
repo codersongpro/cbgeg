@@ -85,7 +85,14 @@ body {
 }
 
 html {
+  font-size: 17px;
   scroll-behavior: smooth;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 18px;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {

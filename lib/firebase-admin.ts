@@ -23,4 +23,6 @@ function createApp(): App {
   return initializeApp({ credential: cert({ projectId, clientEmail, privateKey }) });
 }
 
-export const firestore = getFirestore(createApp());
+export function getFirestoreDb() {
+  return getFirestore(createApp());
+}

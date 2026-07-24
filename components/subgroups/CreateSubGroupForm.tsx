@@ -14,6 +14,8 @@ export function CreateSubGroupForm({ onCreated }: CreateSubGroupFormProps) {
   const [creatorName, setCreatorName] = useState("");
   const [creatorAffiliation, setCreatorAffiliation] = useState("");
   const [creatorContact, setCreatorContact] = useState("");
+  const [managePassword, setManagePassword] = useState("");
+  const [managePasswordConfirm, setManagePasswordConfirm] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -21,11 +23,28 @@ export function CreateSubGroupForm({ onCreated }: CreateSubGroupFormProps) {
     event.preventDefault();
     setLoading(true);
     setError("");
+    if (Array.from(managePassword).length < 4) {
+      setError("관리 비밀번호는 4자 이상 입력해주세요.");
+      setLoading(false);
+      return;
+    }
+    if (managePassword !== managePasswordConfirm) {
+      setError("관리 비밀번호가 서로 다릅니다.");
+      setLoading(false);
+      return;
+    }
 
     const res = await fetch("/api/subgroups", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic, description, creatorName, creatorAffiliation, creatorContact }),
+      body: JSON.stringify({
+        topic,
+        description,
+        creatorName,
+        creatorAffiliation,
+        creatorContact,
+        managePassword,
+      }),
     });
     const data = await res.json();
 
@@ -54,6 +73,31 @@ export function CreateSubGroupForm({ onCreated }: CreateSubGroupFormProps) {
             <option key={t.id} value={t.title} />
           ))}
         </datalist>
+      </label>
+
+      <label className="text-sm font-semibold text-ink">
+        관리 비밀번호
+        <input
+          type="password"
+          value={managePassword}
+          onChange={(e) => setManagePassword(e.target.value)}
+          minLength={4}
+          autoComplete="new-password"
+          placeholder="원하는 비밀번호를 4자 이상 입력하세요"
+          className="mt-1.5 w-full rounded-xl border border-border px-4 py-2.5 text-sm outline-none focus:border-primary"
+        />
+      </label>
+
+      <label className="text-sm font-semibold text-ink">
+        관리 비밀번호 확인
+        <input
+          type="password"
+          value={managePasswordConfirm}
+          onChange={(e) => setManagePasswordConfirm(e.target.value)}
+          minLength={4}
+          autoComplete="new-password"
+          className="mt-1.5 w-full rounded-xl border border-border px-4 py-2.5 text-sm outline-none focus:border-primary"
+        />
       </label>
 
       <label className="text-sm font-semibold text-ink">

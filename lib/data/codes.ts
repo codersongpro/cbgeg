@@ -1,9 +1,9 @@
 import "server-only";
-import { firestore } from "@/lib/firebase-admin";
+import { getFirestoreDb } from "@/lib/firebase-admin";
 import { sha256 } from "@/lib/hash";
 import type { AccessCode } from "@/types";
 
-const codesCollection = () => firestore.collection("codes");
+const codesCollection = () => getFirestoreDb().collection("codes");
 
 export async function verifyAccessCode(code: string): Promise<boolean> {
   const trimmed = code.trim();

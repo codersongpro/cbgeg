@@ -51,10 +51,9 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-6">
-          <p className="text-xs leading-relaxed text-white/40">
+          <p className="text-sm leading-relaxed text-white/50">
             © {new Date().getFullYear()} {site.name}. Google, Google Educator
-            Group은 Google LLC의 상표입니다. 본 웹사이트는 자발적 교원
-            커뮤니티가 운영하는 비공식 소개 페이지입니다.
+            Group은 Google LLC의 상표입니다. 본 웹사이트는 충북 GEG의 공식 소개 페이지입니다.
           </p>
         </div>
       </div>

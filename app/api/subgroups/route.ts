@@ -1,18 +1,17 @@
 import { NextResponse } from "next/server";
 import { createSubGroup, listSubGroupsFull, listSubGroupsPublic } from "@/lib/data/subgroups";
-import { isMemberVerified } from "@/lib/session";
+import {
+  createCreatorSession,
+  creatorSessionSubgroupIds,
+  isMemberVerified,
+} from "@/lib/session";
+import { validateManagePassword } from "@/lib/manage-credentials";
+import { validateSubGroupInput } from "@/lib/subgroup-input";
 
 export async function GET() {
   const verified = await isMemberVerified();
   const subgroups = verified ? await listSubGroupsFull() : await listSubGroupsPublic();
   return NextResponse.json({ verified, subgroups });
-}
-
-function requireString(value: unknown, max = 200): string | null {
-  if (typeof value !== "string") return null;
-  const trimmed = value.trim();
-  if (!trimmed || trimmed.length > max) return null;
-  return trimmed;
 }
 
 export async function POST(request: Request) {
@@ -25,26 +24,18 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json().catch(() => null);
-  const topic = requireString(body?.topic, 60);
-  const description = requireString(body?.description, 500);
-  const creatorName = requireString(body?.creatorName, 30);
-  const creatorAffiliation = requireString(body?.creatorAffiliation, 60);
-  const creatorContact = requireString(body?.creatorContact, 60);
+  const input = validateSubGroupInput(body);
+  const managePassword = validateManagePassword(body?.managePassword);
 
-  if (!topic || !description || !creatorName || !creatorAffiliation || !creatorContact) {
+  if (!input || !managePassword) {
     return NextResponse.json(
-      { ok: false, message: "모든 항목을 입력해주세요." },
+      { ok: false, message: "모든 항목과 4자 이상의 관리 비밀번호를 입력해주세요." },
       { status: 400 }
     );
   }
 
-  const { id, manageToken } = await createSubGroup({
-    topic,
-    description,
-    creatorName,
-    creatorAffiliation,
-    creatorContact,
-  });
+  const { id, manageToken } = await createSubGroup(input, managePassword);
+  await createCreatorSession([...(await creatorSessionSubgroupIds()), id]);
 
   return NextResponse.json({ ok: true, id, manageToken });
 }

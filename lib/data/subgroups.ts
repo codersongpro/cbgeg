@@ -1,19 +1,19 @@
 import "server-only";
 import { randomUUID } from "crypto";
-import { firestore } from "@/lib/firebase-admin";
+import { getFirestoreDb } from "@/lib/firebase-admin";
 import { sha256 } from "@/lib/hash";
 import { maskName } from "@/lib/mask";
+import {
+  hashCreatorContact,
+  hashManagePassword,
+  verifyManagePassword,
+} from "@/lib/manage-credentials";
+import type { SubGroupInput } from "@/lib/subgroup-input";
 import type { SubGroupFull, SubGroupPublic } from "@/types";
 
-const subgroupsCollection = () => firestore.collection("subgroups");
+const subgroupsCollection = () => getFirestoreDb().collection("subgroups");
 
-export interface CreateSubGroupInput {
-  topic: string;
-  description: string;
-  creatorName: string;
-  creatorAffiliation: string;
-  creatorContact: string;
-}
+export type CreateSubGroupInput = SubGroupInput;
 
 async function applicationCount(subgroupId: string): Promise<number> {
   const snapshot = await subgroupsCollection()
@@ -45,7 +45,8 @@ function toFull(id: string, data: FirebaseFirestore.DocumentData, count: number)
 }
 
 export async function createSubGroup(
-  input: CreateSubGroupInput
+  input: CreateSubGroupInput,
+  managePassword: string
 ): Promise<{ id: string; manageToken: string }> {
   const manageToken = randomUUID();
   const doc = {
@@ -54,11 +55,70 @@ export async function createSubGroup(
     creatorName: input.creatorName.trim(),
     creatorAffiliation: input.creatorAffiliation.trim(),
     creatorContact: input.creatorContact.trim(),
+    creatorContactHash: hashCreatorContact(input.creatorContact),
+    managePasswordHash: await hashManagePassword(managePassword),
     manageTokenHash: sha256(manageToken),
     createdAt: new Date(),
   };
   const ref = await subgroupsCollection().add(doc);
   return { id: ref.id, manageToken };
+}
+
+export async function findCreatorSubGroups(
+  contact: string,
+  password: string
+): Promise<SubGroupFull[]> {
+  const snapshot = await subgroupsCollection()
+    .where("creatorContactHash", "==", hashCreatorContact(contact))
+    .get();
+  const matching = [];
+  for (const doc of snapshot.docs) {
+    const data = doc.data();
+    if (
+      typeof data.managePasswordHash === "string" &&
+      (await verifyManagePassword(password, data.managePasswordHash))
+    ) {
+      matching.push(toFull(doc.id, data, await applicationCount(doc.id)));
+    }
+  }
+  return matching;
+}
+
+export async function listSubGroupsByIds(ids: string[]): Promise<SubGroupFull[]> {
+  const groups = await Promise.all(ids.map((id) => getSubGroupFull(id)));
+  return groups.filter((group): group is SubGroupFull => group !== null);
+}
+
+export async function updateSubGroup(id: string, input: CreateSubGroupInput): Promise<boolean> {
+  const ref = subgroupsCollection().doc(id);
+  const current = await ref.get();
+  if (!current.exists) return false;
+  await ref.update({
+    ...input,
+    creatorContactHash: hashCreatorContact(input.creatorContact),
+    updatedAt: new Date(),
+  });
+  return true;
+}
+
+export async function deleteSubGroup(id: string): Promise<boolean> {
+  const ref = subgroupsCollection().doc(id);
+  if (!(await ref.get()).exists) return false;
+  await getFirestoreDb().recursiveDelete(ref);
+  return true;
+}
+
+export async function setManagePassword(id: string, password: string): Promise<boolean> {
+  const ref = subgroupsCollection().doc(id);
+  const current = await ref.get();
+  if (!current.exists) return false;
+  const data = current.data()!;
+  await ref.update({
+    managePasswordHash: await hashManagePassword(password),
+    creatorContactHash: hashCreatorContact(data.creatorContact),
+    updatedAt: new Date(),
+  });
+  return true;
 }
 
 export async function listSubGroupsPublic(): Promise<SubGroupPublic[]> {

@@ -1,5 +1,6 @@
 import { listApplications } from "@/lib/data/applications";
-import { getSubGroupFull, verifyManageToken } from "@/lib/data/subgroups";
+import { getSubGroupFull } from "@/lib/data/subgroups";
+import { canManageSubgroup } from "@/lib/subgroup-access-server";
 
 interface ManagePageProps {
   params: Promise<{ id: string }>;
@@ -10,7 +11,7 @@ export default async function SubGroupManagePage({ params, searchParams }: Manag
   const { id } = await params;
   const { token } = await searchParams;
 
-  const valid = await verifyManageToken(id, token ?? "");
+  const valid = await canManageSubgroup(id, token ?? "");
   if (!valid) {
     return (
       <div className="flex min-h-screen items-center justify-center px-5 text-center">
