@@ -170,7 +170,7 @@ export function BoardClient() {
   if (!authenticated) {
     return (
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-surface-elevated p-6 shadow-sm">
-        <h1 className="text-2xl font-extrabold text-ink">선생님 게시판</h1>
+        <h1 className="text-2xl font-extrabold text-ink">게시판</h1>
         <p className="mt-2 text-base leading-relaxed text-ink-muted">
           충북 GEG 선생님만 이용할 수 있습니다. 관리자에게 받은 인증 코드를 입력해주세요.
         </p>
@@ -186,7 +186,7 @@ export function BoardClient() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="font-bold text-primary">CHUNGBUK GEG COMMUNITY</p>
-          <h1 className="mt-2 text-3xl font-extrabold text-ink">선생님 게시판</h1>
+          <h1 className="mt-2 text-3xl font-extrabold text-ink">게시판</h1>
           <p className="mt-2 text-base text-ink-muted">인증된 충북 GEG 선생님들과 이야기와 자료를 나눠보세요.</p>
         </div>
         <Button onClick={() => setShowCreate((value) => !value)}>

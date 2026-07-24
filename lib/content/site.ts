@@ -10,7 +10,7 @@ export const site = {
     { href: "#activities", label: "활동" },
     { href: "#members", label: "멤버" },
     { href: "#join", label: "참여방법" },
-    { href: "/board", label: "선생님 게시판" },
+    { href: "/board", label: "게시판" },
   ],
   contact: {
     // Real join channels for the whole GEG community (not a specific subgroup).
