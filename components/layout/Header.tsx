@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { GegLogo } from "@/components/illustrations/GegLogo";
 import { site } from "@/lib/content/site";
 
 export function Header() {
@@ -22,13 +22,20 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-40 transition-all duration-300",
         scrolled
-          ? "bg-surface/80 shadow-sm backdrop-blur-md"
+          ? "bg-surface/85 shadow-sm backdrop-blur-md"
           : "bg-transparent"
       )}
     >
+      <div className="flex h-[5px] w-full">
+        <div className="flex-1 bg-[#4285F4]" />
+        <div className="flex-1 bg-[#EA4335]" />
+        <div className="flex-1 bg-[#FBBC04]" />
+        <div className="flex-1 bg-[#34A853]" />
+      </div>
+
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <a href="#top" className="flex items-center gap-2 text-lg font-extrabold text-ink">
-          <GegLogo className="h-8 w-8" />
+          <Image src="/geg-icon.png" alt="" width={34} height={34} className="h-8 w-8 object-contain" />
           {site.name}
         </a>
 
@@ -46,7 +53,9 @@ export function Header() {
 
         <div className="hidden md:block">
           <Button asChild size="sm">
-            <a href="#join">참여하기</a>
+            <a href={site.contact.googleFormUrl} target="_blank" rel="noopener">
+              참여하기
+            </a>
           </Button>
         </div>
 

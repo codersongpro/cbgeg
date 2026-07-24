@@ -1,7 +1,7 @@
-import { Mail, FileText, Clock } from "lucide-react";
+import { Mail, FileText, ArrowRight } from "lucide-react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { Button } from "@/components/ui/button";
 import { joinSteps } from "@/lib/content/join";
 import { site } from "@/lib/content/site";
 
@@ -52,29 +52,36 @@ export function JoinCta() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Mail className="h-6 w-6" />
+                  <FileText className="h-6 w-6" />
                 </span>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <CardTitle>연락처</CardTitle>
-                    {site.contact.isPlaceholder && (
-                      <Badge variant="amber">
-                        <Clock className="h-3 w-3" /> 준비 중
-                      </Badge>
-                    )}
-                  </div>
+                  <CardTitle>참여 신청 폼</CardTitle>
                   <CardDescription className="mt-1">
-                    {site.contact.email}
+                    1~2분이면 신청 완료 · 개인정보는 최소한만 받습니다
                   </CardDescription>
                 </div>
               </div>
 
-              <span className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold text-ink-muted">
-                <FileText className="h-4 w-4" />
-                참여 신청 폼 (준비 중)
-              </span>
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <a href={site.contact.googleFormUrl} target="_blank" rel="noopener">
+                  구글폼으로 참여하기 <ArrowRight className="h-4 w-4" />
+                </a>
+              </Button>
             </div>
           </Card>
+        </Reveal>
+
+        <Reveal delay={0.15} className="mt-4">
+          <div className="flex flex-col items-center gap-2 rounded-2xl border border-white/20 bg-white/10 p-5 text-center text-white backdrop-blur-sm sm:flex-row sm:justify-center sm:gap-3 sm:text-left">
+            <Mail className="h-5 w-5 shrink-0 text-white/80" />
+            <p className="text-sm leading-relaxed text-white/85">
+              구글폼이 불편하다면{" "}
+              <a href={`mailto:${site.contact.email}`} className="font-bold underline underline-offset-2">
+                {site.contact.email}
+              </a>
+              로 소속·이름·핸드폰 연락처를 보내주셔도 충북GEG 가입 신청이 가능해요.
+            </p>
+          </div>
         </Reveal>
       </div>
     </section>

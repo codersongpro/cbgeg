@@ -10,8 +10,8 @@ export const joinSteps: JoinStep[] = [
   {
     id: "contact",
     step: 2,
-    title: "연락처로 문의",
-    description: "아래 연락처로 참여 의사를 편하게 알려주세요. 소속·직급 상관없이 환영합니다.",
+    title: "참여 폼 작성",
+    description: "아래 구글폼 또는 이메일로 참여 의사를 편하게 알려주세요. 소속·직급 상관없이 환영합니다.",
   },
   {
     id: "attend",

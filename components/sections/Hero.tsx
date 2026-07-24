@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { Blob } from "@/components/illustrations/Blob";
 import { Badge } from "@/components/ui/badge";
@@ -24,9 +25,20 @@ export function Hero() {
       />
 
       <div className="mx-auto flex max-w-4xl flex-col items-center px-5 text-center sm:px-8">
-        <Badge variant="primary">Google 공식 협업 교원 커뮤니티</Badge>
+        <Image
+          src="/geg-icon.png"
+          alt="충북 Google Educator Group 로고"
+          width={132}
+          height={122}
+          priority
+          className="h-24 w-auto drop-shadow-lg sm:h-32"
+        />
 
-        <h1 className="mt-6 text-5xl font-extrabold tracking-tight text-ink sm:text-6xl md:text-7xl">
+        <Badge variant="primary" className="mt-5">
+          Google 공식 협업 교원 커뮤니티
+        </Badge>
+
+        <h1 className="mt-5 text-5xl font-extrabold tracking-tight text-ink sm:text-6xl md:text-7xl">
           {site.name}
         </h1>
 
@@ -39,7 +51,9 @@ export function Hero() {
             <a href="#subgroups">소모임 둘러보기</a>
           </Button>
           <Button asChild variant="ghost" size="lg" className="w-full sm:w-auto">
-            <a href="#join">참여 방법 보기</a>
+            <a href={site.contact.googleFormUrl} target="_blank" rel="noopener">
+              참여 신청하기
+            </a>
           </Button>
         </div>
 

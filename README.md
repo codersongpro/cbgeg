@@ -1,6 +1,15 @@
 # 충북 GEG 랜딩페이지
 
-Google Educator Group Chungbuk(충북 GEG) 소개 랜딩페이지. Next.js (App Router) + TypeScript + Tailwind CSS로 제작한 정적 원페이지 사이트입니다.
+Google Educator Group Chungbuk(충북 GEG) 소개 랜딩페이지. Next.js (App Router) + TypeScript + Tailwind CSS + Firebase(Firestore)로 제작했습니다. 소모임 등록/가입 신청 기능은 관리자가 발급하는 인증 코드로 보호됩니다.
+
+## 환경변수 설정
+
+`.env.example`을 `.env.local`로 복사하고 값을 채워주세요.
+
+- `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`: Firebase 콘솔 > 프로젝트 설정 > 서비스 계정에서 "새 비공개 키 생성"으로 받은 JSON 파일의 값
+- `SESSION_SECRET`: `openssl rand -base64 32`로 생성한 임의의 문자열
+- `ADMIN_PASSWORD`: `/admin` 관리자 페이지 로그인 비밀번호
+- `NEXT_PUBLIC_JOIN_FORM_URL`, `NEXT_PUBLIC_CONTACT_EMAIL`: 선택사항 (기본값이 코드에 이미 설정되어 있음)
 
 ## 개발
 
@@ -11,19 +20,48 @@ npm run dev
 
 http://localhost:3000 에서 확인할 수 있습니다.
 
+### Firestore 에뮬레이터로 로컬 테스트하기
+
+실제 Firebase 프로젝트 없이도 로컬에서 전체 기능을 테스트할 수 있습니다.
+
+```bash
+npx firebase-tools emulators:start --only firestore --project demo-cbgeg
+```
+
+에뮬레이터 실행 중에는 `.env.local`에 아래처럼 설정하면 실제 Firebase 대신 에뮬레이터를 사용합니다.
+
+```
+FIRESTORE_EMULATOR_HOST=localhost:8080
+FIREBASE_PROJECT_ID=demo-cbgeg
+```
+
 ## 빌드
 
 ```bash
 npm run build
 ```
 
-## 연락처 채널 연결하기
+## 관리자 기능 (`/admin`)
 
-`가입/참여 방법` 섹션의 연락처는 아직 실제 채널이 없어 예시 플레이스홀더로 표시됩니다. 실제 이메일/구글폼이 준비되면 Vercel 프로젝트의 환경변수에 아래 값을 설정하면 코드 수정 없이 반영됩니다.
+`ADMIN_PASSWORD`로 로그인하면:
 
+- **인증 코드 관리**: 소모임을 만들거나 가입하려면 회원이 입력해야 하는 코드를 등록/비활성화/삭제할 수 있습니다. 여러 개를 등록해두고 아무 코드나 맞으면 인증되는 방식입니다.
+- **소모임 · 가입 신청 현황**: 모든 소모임의 개설자 정보(실명/소속/연락처)와 가입 신청 목록을 확인할 수 있습니다.
+
+소모임 개설자는 소모임을 만들 때 한 번 표시되는 관리 링크(`/subgroups/[id]/manage?token=...`)로 로그인 없이 자신의 소모임에 온 가입 신청을 확인할 수 있습니다.
+
+## 개인정보 처리 방침
+
+- 소모임 개설자 정보는 인증 코드를 입력한 방문자에게만 전체 공개되고, 그 외에는 성만 보이고 나머지는 마스킹됩니다(예: 김철수 → 김○○).
+- 가입 신청서(소속/이름/연락처/하고 싶은 말)는 관리자와 해당 소모임 개설자(관리 링크 보유자)만 볼 수 있습니다.
+
+## 연락처 채널
+
+`가입/참여 방법` 섹션과 헤더/푸터의 참여 CTA는 실제 구글폼과 이메일로 연결되어 있습니다. 채널이 바뀌면 Vercel 환경변수에서 교체하면 됩니다.
+
+- `NEXT_PUBLIC_JOIN_FORM_URL`
 - `NEXT_PUBLIC_CONTACT_EMAIL`
-- `NEXT_PUBLIC_CONTACT_FORM_URL`
 
 ## 배포
 
-Vercel에 저장소를 연결하면 별도 설정 없이 배포됩니다.
+Vercel에 저장소를 연결하고 위 환경변수를 설정하면 배포됩니다.

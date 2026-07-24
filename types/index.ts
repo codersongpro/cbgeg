@@ -47,3 +47,38 @@ export interface JoinStep {
   title: string;
   description: string;
 }
+
+export interface AccessCode {
+  id: string;
+  code: string;
+  label: string;
+  active: boolean;
+  createdAt: string;
+}
+
+/** What an unverified visitor sees for a registered sub-group. */
+export interface SubGroupPublic {
+  id: string;
+  topic: string;
+  description: string;
+  creatorNameMasked: string;
+  createdAt: string;
+  applicationCount: number;
+}
+
+/** What a verified member (or admin) sees for a registered sub-group. */
+export interface SubGroupFull extends SubGroupPublic {
+  creatorName: string;
+  creatorAffiliation: string;
+  creatorContact: string;
+}
+
+export interface SubGroupApplication {
+  id: string;
+  subgroupId: string;
+  affiliation: string;
+  name: string;
+  contact: string;
+  message: string;
+  createdAt: string;
+}

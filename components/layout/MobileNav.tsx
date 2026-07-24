@@ -35,7 +35,9 @@ export function MobileNav() {
         <div className="border-t border-border p-6">
           <SheetClose asChild>
             <Button asChild variant="primary" size="lg" className="w-full">
-              <a href="#join">참여하기</a>
+              <a href={site.contact.googleFormUrl} target="_blank" rel="noopener">
+                참여 신청하기
+              </a>
             </Button>
           </SheetClose>
         </div>

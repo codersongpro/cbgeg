@@ -1,14 +1,16 @@
-import { GegLogo } from "@/components/illustrations/GegLogo";
+import Image from "next/image";
 import { site } from "@/lib/content/site";
 
 export function Footer() {
+  const quickLinks = site.navLinks.filter((link) => link.href !== "#join");
+
   return (
     <footer className="bg-dark-surface text-dark-ink">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
-              <GegLogo className="h-7 w-7" />
+              <Image src="/geg-icon.png" alt="" width={32} height={32} className="h-7 w-7 object-contain" />
               <p className="text-xl font-extrabold text-white">{site.name}</p>
             </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
@@ -19,7 +21,7 @@ export function Footer() {
           <div>
             <p className="text-sm font-semibold text-white/80">바로가기</p>
             <ul className="mt-4 space-y-3">
-              {site.navLinks.map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
@@ -33,11 +35,18 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-white/80">연락처</p>
-            <p className="mt-4 text-sm text-white/60">{site.contact.email}</p>
-            {site.contact.isPlaceholder && (
-              <p className="mt-1 text-xs text-white/40">(준비 중 · 예시 주소)</p>
-            )}
+            <p className="text-sm font-semibold text-white/80">참여하기</p>
+            <a
+              href={site.contact.googleFormUrl}
+              target="_blank"
+              rel="noopener"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/15"
+            >
+              참여 신청 폼 열기
+            </a>
+            <p className="mt-3 text-xs text-white/50">
+              또는 이메일 {site.contact.email}
+            </p>
           </div>
         </div>
 

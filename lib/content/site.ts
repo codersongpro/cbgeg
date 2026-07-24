@@ -8,15 +8,14 @@ export const site = {
     { href: "#about", label: "소개" },
     { href: "#subgroups", label: "소모임" },
     { href: "#activities", label: "활동" },
-    { href: "#leaders", label: "멤버" },
+    { href: "#members", label: "멤버" },
     { href: "#join", label: "참여방법" },
   ],
   contact: {
-    // No real channel exists yet. These placeholders are swapped in later
-    // via Vercel environment variables — no code change required.
-    email:
-      process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "chungbuk.geg@example.com",
-    formUrl: process.env.NEXT_PUBLIC_CONTACT_FORM_URL ?? "",
-    isPlaceholder: !process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+    // Real join channels for the whole GEG community (not a specific subgroup).
+    googleFormUrl:
+      process.env.NEXT_PUBLIC_JOIN_FORM_URL ??
+      "https://docs.google.com/forms/d/e/1FAIpQLScPhb3NH7QhhTbM95-hJB1W1jJXF1meM965xZec4zfPpw0R2w/viewform?usp=header",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "cbgeg@sds321.com",
   },
 };

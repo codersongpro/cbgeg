@@ -1,4 +1,4 @@
-import { CalendarClock, Video, BadgeCheck, Building2 } from "lucide-react";
+import { CalendarClock, Video, BadgeCheck, Building2, Presentation, Users2 } from "lucide-react";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
@@ -17,6 +17,12 @@ const typeVariant: Record<string, "primary" | "amber" | "green" | "coral"> = {
   워크숍: "green",
   연수: "coral",
 };
+
+const highlightTiles = [
+  { id: "seminar", label: "정기 세미나 현장", icon: Presentation, color: "text-primary", bg: "bg-primary/10" },
+  { id: "visit", label: "기업 방문 · 투어", icon: Building2, color: "text-amber-ink", bg: "bg-amber/15" },
+  { id: "workshop", label: "함께 만드는 워크숍", icon: Users2, color: "text-green", bg: "bg-green/10" },
+];
 
 export function ActivitiesTimeline() {
   return (
@@ -43,6 +49,22 @@ export function ActivitiesTimeline() {
                 <Icon className="h-4 w-4 text-primary" />
                 {item.label}
               </span>
+            </RevealItem>
+          );
+        })}
+      </RevealGroup>
+
+      <RevealGroup className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {highlightTiles.map((tile) => {
+          const Icon = tile.icon;
+          return (
+            <RevealItem key={tile.id}>
+              <div className="flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-surface-elevated">
+                <span className={`flex h-14 w-14 items-center justify-center rounded-full ${tile.bg} ${tile.color}`}>
+                  <Icon className="h-7 w-7" strokeWidth={1.75} />
+                </span>
+                <p className="text-sm font-semibold text-ink-muted">{tile.label}</p>
+              </div>
             </RevealItem>
           );
         })}
