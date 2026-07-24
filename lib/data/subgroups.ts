@@ -9,6 +9,7 @@ import {
   verifyManagePassword,
 } from "@/lib/manage-credentials";
 import type { SubGroupInput } from "@/lib/subgroup-input";
+import { resolveCreatorScopeIds } from "@/lib/creator-scope";
 import type { SubGroupFull, SubGroupPublic } from "@/types";
 
 const subgroupsCollection = () => getFirestoreDb().collection("subgroups");
@@ -71,17 +72,22 @@ export async function findCreatorSubGroups(
   const snapshot = await subgroupsCollection()
     .where("creatorContactHash", "==", hashCreatorContact(contact))
     .get();
-  const matching = [];
-  for (const doc of snapshot.docs) {
-    const data = doc.data();
-    if (
-      typeof data.managePasswordHash === "string" &&
-      (await verifyManagePassword(password, data.managePasswordHash))
-    ) {
-      matching.push(toFull(doc.id, data, await applicationCount(doc.id)));
-    }
-  }
-  return matching;
+  const scopeIds = await resolveCreatorScopeIds(
+    snapshot.docs.map((doc) => ({
+      id: doc.id,
+      passwordHash:
+        typeof doc.data().managePasswordHash === "string"
+          ? doc.data().managePasswordHash
+          : undefined,
+    })),
+    (passwordHash) => verifyManagePassword(password, passwordHash)
+  );
+  if (!scopeIds.length) return [];
+  return Promise.all(
+    snapshot.docs.map(async (doc) =>
+      toFull(doc.id, doc.data(), await applicationCount(doc.id))
+    )
+  );
 }
 
 export async function listSubGroupsByIds(ids: string[]): Promise<SubGroupFull[]> {
