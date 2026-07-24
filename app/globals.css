@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafaf7;
+  --foreground: #151a34;
+
+  --color-primary: #3b6fe0;
+  --color-primary-foreground: #ffffff;
+  --color-amber: #ffb800;
+  --color-amber-ink: #8a5a00;
+  --color-green: #1db874;
+  --color-coral: #ff5d73;
+
+  --color-surface: #fafaf7;
+  --color-surface-elevated: #ffffff;
+  --color-ink: #151a34;
+  --color-ink-muted: #5b6178;
+  --color-border: #e7e5df;
+
+  --color-dark-surface: #151a34;
+  --color-dark-ink: #f3f4f8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-amber: var(--color-amber);
+  --color-amber-ink: var(--color-amber-ink);
+  --color-green: var(--color-green);
+  --color-coral: var(--color-coral);
+
+  --color-surface: var(--color-surface);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-border: var(--color-border);
+
+  --color-dark-surface: var(--color-dark-surface);
+  --color-dark-ink: var(--color-dark-ink);
+
+  --font-sans: var(--font-pretendard);
+
+  --animate-float-slow: float 10s ease-in-out infinite;
+  --animate-float-slower: float 14s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(2%, -4%) rotate(6deg);
+  }
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sheet-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, "Noto Sans KR", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
