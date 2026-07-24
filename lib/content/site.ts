@@ -5,11 +5,11 @@ export const site = {
   founded: "2019",
   memberCount: "100",
   navLinks: [
-    { href: "#about", label: "소개" },
-    { href: "#subgroups", label: "소모임" },
-    { href: "#activities", label: "활동" },
-    { href: "#members", label: "멤버" },
-    { href: "#join", label: "참여방법" },
+    { href: "/#about", label: "소개" },
+    { href: "/#subgroups", label: "소모임" },
+    { href: "/#activities", label: "활동" },
+    { href: "/#members", label: "멤버" },
+    { href: "/#join", label: "참여방법" },
     { href: "/board", label: "게시판" },
   ],
   contact: {

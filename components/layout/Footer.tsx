@@ -2,7 +2,7 @@ import Image from "next/image";
 import { site } from "@/lib/content/site";
 
 export function Footer() {
-  const quickLinks = site.navLinks.filter((link) => link.href !== "#join");
+  const quickLinks = site.navLinks.filter((link) => link.href !== "/#join");
 
   return (
     <footer className="bg-dark-surface text-dark-ink">
