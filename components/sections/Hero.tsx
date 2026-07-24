@@ -47,13 +47,13 @@ export function Hero() {
         </p>
 
         <div className="mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <a href="#subgroups">소모임 둘러보기</a>
-          </Button>
           <Button asChild variant="ghost" size="lg" className="w-full sm:w-auto">
             <a href={site.contact.googleFormUrl} target="_blank" rel="noopener">
-              참여 신청하기
+              GEG 참여 신청하기
             </a>
+          </Button>
+          <Button asChild size="lg" className="w-full sm:w-auto">
+            <a href="#subgroups">소모임 둘러보기</a>
           </Button>
         </div>
 

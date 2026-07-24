@@ -36,7 +36,7 @@ export function MobileNav() {
           <SheetClose asChild>
             <Button asChild variant="primary" size="lg" className="w-full">
               <a href={site.contact.googleFormUrl} target="_blank" rel="noopener">
-                참여 신청하기
+                GEG 참여 신청하기
               </a>
             </Button>
           </SheetClose>

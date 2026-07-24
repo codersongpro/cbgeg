@@ -82,3 +82,21 @@ export interface SubGroupApplication {
   message: string;
   createdAt: string;
 }
+
+export interface BoardPost {
+  id: string;
+  title: string;
+  content: string;
+  authorName: string;
+  createdAt: string;
+  updatedAt: string;
+  commentCount: number;
+}
+
+export interface BoardComment {
+  id: string;
+  postId: string;
+  content: string;
+  authorName: string;
+  createdAt: string;
+}

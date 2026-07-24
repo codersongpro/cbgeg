@@ -163,9 +163,14 @@ export function AdminDashboard({ initialCodes, initialSubgroups }: AdminDashboar
     <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-extrabold text-ink">충북 GEG 관리자</h1>
-        <Button variant="ghost" size="sm" onClick={handleLogout}>
-          로그아웃
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button asChild variant="outline" size="sm">
+            <a href="/board">게시판 관리</a>
+          </Button>
+          <Button variant="ghost" size="sm" onClick={handleLogout}>
+            로그아웃
+          </Button>
+        </div>
       </div>
 
       <section className="mt-10">

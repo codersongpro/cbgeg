@@ -4,8 +4,16 @@ import { sha256 } from "@/lib/hash";
 import { nextLoginAttempt } from "@/lib/rate-limit-state";
 
 export async function allowCreatorLogin(key: string): Promise<boolean> {
+  return allowAttempt("loginRateLimits", key);
+}
+
+export async function allowBoardWrite(key: string): Promise<boolean> {
+  return allowAttempt("boardWriteRateLimits", key);
+}
+
+async function allowAttempt(collection: string, key: string): Promise<boolean> {
   const firestore = getFirestoreDb();
-  const ref = firestore.collection("loginRateLimits").doc(sha256(key));
+  const ref = firestore.collection(collection).doc(sha256(key));
   return firestore.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(ref);
     const data = snapshot.data();
