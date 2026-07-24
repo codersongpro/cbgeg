@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { GegLogo } from "@/components/illustrations/GegLogo";
 import { site } from "@/lib/content/site";
 
 export function Header() {
@@ -27,15 +28,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <a href="#top" className="flex items-center gap-2 text-lg font-extrabold text-ink">
-          <span
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--color-primary), var(--color-green))",
-            }}
-          >
-            G
-          </span>
+          <GegLogo className="h-8 w-8" />
           {site.name}
         </a>
 

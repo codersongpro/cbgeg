@@ -1,3 +1,4 @@
+import { GegLogo } from "@/components/illustrations/GegLogo";
 import { site } from "@/lib/content/site";
 
 export function Footer() {
@@ -6,7 +7,10 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <p className="text-xl font-extrabold text-white">{site.name}</p>
+            <div className="flex items-center gap-2">
+              <GegLogo className="h-7 w-7" />
+              <p className="text-xl font-extrabold text-white">{site.name}</p>
+            </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
               {site.tagline}
             </p>
