@@ -9,6 +9,8 @@ import { isMemberVerified } from "@/lib/session";
 import { canManageSubgroup } from "@/lib/subgroup-access-server";
 import { validateSubGroupInput } from "@/lib/subgroup-input";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }

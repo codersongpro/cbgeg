@@ -5,7 +5,15 @@ import { Button } from "@/components/ui/button";
 import { subGroupTopics } from "@/lib/content/subgroups";
 
 interface CreateSubGroupFormProps {
-  onCreated: (result: { id: string; manageToken: string; topic: string }) => void;
+  onCreated: (result: {
+    id: string;
+    manageToken: string;
+    topic: string;
+    description: string;
+    creatorName: string;
+    creatorAffiliation: string;
+    creatorContact: string;
+  }) => void;
 }
 
 export function CreateSubGroupForm({ onCreated }: CreateSubGroupFormProps) {
@@ -45,6 +53,7 @@ export function CreateSubGroupForm({ onCreated }: CreateSubGroupFormProps) {
         creatorContact,
         managePassword,
       }),
+      cache: "no-store",
     });
     const data = await res.json();
 
@@ -54,7 +63,15 @@ export function CreateSubGroupForm({ onCreated }: CreateSubGroupFormProps) {
       return;
     }
 
-    onCreated({ id: data.id, manageToken: data.manageToken, topic });
+    onCreated({
+      id: data.id,
+      manageToken: data.manageToken,
+      topic,
+      description,
+      creatorName,
+      creatorAffiliation,
+      creatorContact,
+    });
   }
 
   return (

@@ -11,6 +11,7 @@ import { VerifyCodeForm } from "@/components/subgroups/VerifyCodeForm";
 import { CreateSubGroupForm } from "@/components/subgroups/CreateSubGroupForm";
 import { JoinSubGroupForm } from "@/components/subgroups/JoinSubGroupForm";
 import { subGroupTopics } from "@/lib/content/subgroups";
+import { maskName } from "@/lib/mask";
 import type { SubGroupFull, SubGroupPublic } from "@/types";
 
 type SubGroupItem = SubGroupPublic | SubGroupFull;
@@ -37,7 +38,7 @@ export function SubGroups() {
   const [dialog, setDialog] = useState<DialogState>({ type: "none" });
 
   async function refresh() {
-    const res = await fetch("/api/subgroups");
+    const res = await fetch("/api/subgroups", { cache: "no-store" });
     const data = await res.json();
     setSubgroups(data.subgroups ?? []);
     setVerified(!!data.verified);
@@ -46,7 +47,7 @@ export function SubGroups() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/subgroups")
+    fetch("/api/subgroups", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (cancelled) return;
@@ -94,8 +95,8 @@ export function SubGroups() {
             충북GEG 소모임
           </span>
           <h2 className="mt-3 text-3xl font-extrabold text-ink sm:text-4xl">
-            관심사가 통하는 선생님들끼리,
-            <br />
+            관심사가 통하는 선생님들끼리,{" "}
+            <br className="hidden sm:block" />
             자유롭게 소모임을 시작해보세요
           </h2>
           <p className="mt-5 text-base leading-relaxed text-ink-muted">
@@ -166,7 +167,19 @@ export function SubGroups() {
       <Dialog open={dialog.type === "create"} onOpenChange={(open) => !open && close()}>
         <DialogContent title="소모임 만들기">
           <CreateSubGroupForm
-            onCreated={({ id, manageToken, topic }) => {
+            onCreated={({ id, manageToken, topic, description, creatorName, creatorAffiliation, creatorContact }) => {
+              const optimistic: SubGroupFull = {
+                id,
+                topic,
+                description,
+                creatorName,
+                creatorAffiliation,
+                creatorContact,
+                creatorNameMasked: maskName(creatorName),
+                createdAt: new Date().toISOString(),
+                applicationCount: 0,
+              };
+              setSubgroups((prev) => [optimistic, ...prev]);
               refresh();
               setDialog({
                 type: "created",

@@ -3,6 +3,8 @@ import { listApplications } from "@/lib/data/applications";
 import { getSubGroupFull } from "@/lib/data/subgroups";
 import { canManageSubgroup } from "@/lib/subgroup-access-server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }

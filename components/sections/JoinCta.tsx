@@ -21,8 +21,8 @@ export function JoinCta() {
             가입 · 참여 방법
           </span>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-            직급도, 학교급도 넘어서
-            <br />
+            직급도, 학교급도 넘어서{" "}
+            <br className="hidden sm:block" />
             누구나 환영합니다
           </h2>
           <p className="mt-5 text-base leading-relaxed text-white/85">

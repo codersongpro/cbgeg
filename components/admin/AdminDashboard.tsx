@@ -32,7 +32,7 @@ export function AdminDashboard({ initialCodes, initialSubgroups }: AdminDashboar
   const [groupError, setGroupError] = useState("");
 
   async function refreshCodes() {
-    const res = await fetch("/api/admin/codes");
+    const res = await fetch("/api/admin/codes", { cache: "no-store" });
     const data = await res.json();
     setCodes(data.codes ?? []);
   }
@@ -147,7 +147,7 @@ export function AdminDashboard({ initialCodes, initialSubgroups }: AdminDashboar
     }
     setExpandedId(subgroupId);
     if (!applications[subgroupId]) {
-      const res = await fetch(`/api/subgroups/${subgroupId}/applications`);
+      const res = await fetch(`/api/subgroups/${subgroupId}/applications`, { cache: "no-store" });
       const data = await res.json();
       setApplications((prev) => ({ ...prev, [subgroupId]: data.applications ?? [] }));
     }

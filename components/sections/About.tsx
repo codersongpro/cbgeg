@@ -14,8 +14,8 @@ export function About() {
             GEG란?
           </span>
           <h2 className="mt-3 text-3xl font-extrabold text-ink sm:text-4xl">
-            자발적으로 모인 교원들의
-            <br />
+            자발적으로 모인 교원들의{" "}
+            <br className="hidden sm:block" />
             에듀테크 학습공동체
           </h2>
           <p className="mt-6 text-base leading-relaxed text-ink-muted">

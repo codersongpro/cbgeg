@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createAccessCode, listAccessCodes } from "@/lib/data/codes";
 import { isAdminSession } from "@/lib/session";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   if (!(await isAdminSession())) {
     return NextResponse.json({ message: "인증이 필요합니다." }, { status: 401 });

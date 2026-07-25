@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { verifyAccessCode } from "@/lib/data/codes";
 import { createMemberSession, isMemberVerified } from "@/lib/session";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   return NextResponse.json({ verified: await isMemberVerified() });
 }

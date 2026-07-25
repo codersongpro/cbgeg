@@ -8,6 +8,8 @@ import {
 import { validateManagePassword } from "@/lib/manage-credentials";
 import { validateSubGroupInput } from "@/lib/subgroup-input";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const verified = await isMemberVerified();
   const subgroups = verified ? await listSubGroupsFull() : await listSubGroupsPublic();

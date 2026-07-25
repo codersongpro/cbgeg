@@ -4,6 +4,8 @@ import { isAdminSession } from "@/lib/session";
 import { validateManagePassword } from "@/lib/manage-credentials";
 import { validateSubGroupInput } from "@/lib/subgroup-input";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   if (!(await isAdminSession())) {
     return NextResponse.json({ message: "인증이 필요합니다." }, { status: 401 });
