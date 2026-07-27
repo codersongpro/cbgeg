@@ -10,7 +10,7 @@ const typeVariant: Record<string, "primary" | "amber" | "green" | "coral"> = {
   연수: "coral",
 };
 
-export function YearTimeline2025({ activities }: { activities: ActivityItem[] }) {
+export function YearTimeline({ activities }: { activities: ActivityItem[] }) {
   return (
     <div className="relative">
       <div className="absolute bottom-0 left-4 top-0 w-px bg-border sm:left-20" />

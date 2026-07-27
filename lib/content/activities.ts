@@ -12,49 +12,81 @@ export const activities: ActivityItem[] = [
     id: "2025-05-30",
     date: "5.30",
     type: "세미나",
-    title: "비전 나눔 · 사례 나눔",
+    title: "왓슈?! 1차 — 비전 나눔 · 사례 나눔",
     highlights: [
       "첫 모임 및 비전 나눔",
-      "느린 학습자를 위한 디지털 기반 지원 사례",
-      "바이브 코딩으로 만드는 수업 프로그램",
-      "구글 노트북LM 활용 수업 사례",
+      "느린 학습자를 위한 디지털 연계 초기 문해력 지도 사례",
+      "땅커벨 · 구글 NotebookLM 활용 수업 사례",
+      "생성형 AI로 수업 활용 프로그램 제작하기",
+    ],
+  },
+  {
+    id: "2025-07-05",
+    date: "7.5",
+    type: "워크숍",
+    title: "왓슈?! 2차 — 부트캠프 · 바이브 코딩 입문",
+    highlights: [
+      "새 세대를 위한 AI 수업 디자인",
+      "바이브 코딩의 기초 다지기",
+      "바이브 코딩으로 수업 활용 앱 제작하기",
     ],
   },
   {
     id: "2025-07-28",
     date: "7.28",
     type: "방문",
-    title: "기업 방문 · 사례 나눔",
+    title: "왓슈?! 3차 — 구글코리아 방문",
     highlights: [
-      "구글코리아 방문 및 기업 투어",
-      "생성형 AI 활용 수업 사례",
-      "AI 세대를 위한 디지털 기반 수업 디자인",
-      "Gemini Academy",
+      "구글코리아 방문 및 Google Tour",
+      "Gemini Academy 참여",
+      "충북 GEG 사례 나눔",
     ],
   },
   {
-    id: "2025-08-09",
-    date: "8.9",
-    type: "워크숍",
-    title: "사례 나눔 · 워크숍",
-    highlights: [
-      "피지컬 에듀테크 — 체육 수업 AI·에듀테크 연구",
-      "생성형 AI 활용 \"어디서나 몸활동, 어디서나 운동장\" 자료 제작",
-    ],
-  },
-  {
-    id: "2025-09-11",
-    date: "9.11",
-    type: "세미나",
-    title: "수업사례 나눔",
-    highlights: ["자체 수업사례 공유회 개최"],
-  },
-  {
-    id: "2025-11-06",
-    date: "11.6",
+    id: "2025-11-22",
+    date: "11.22",
     type: "연수",
-    title: "역량강화 연수",
-    highlights: ["바이브 코딩 챌린지"],
+    title: "잘 왔슈! 4차 — 바이브 코딩 챌린지",
+    highlights: [
+      "통찰이 있는 프롬프트 작성법",
+      "Vibe Coding Challenge 실습",
+      "참가자 결과물 공유",
+    ],
+  },
+  {
+    id: "2025-sports",
+    date: "번외",
+    type: "워크숍",
+    title: "뛰러 왔슈?! — 체육 에듀테크 번외 모임",
+    highlights: [
+      "체육 교과 관련 AI·에듀테크 활용 수업 사례",
+      "네트형 게임 등 실습",
+      "회비 미지원 · 희망 교원 대상 자율 모임",
+    ],
+  },
+];
+
+export const activities2026: ActivityItem[] = [
+  {
+    id: "2026-05",
+    date: "5월",
+    type: "세미나",
+    title: "1차 워크숍 — 느린 학습자를 위한 생성형 AI",
+    highlights: [
+      "아이들의 속도에 맞춘 디지털 학습 지원 사례",
+      "느린 학습자를 위한 생성형 AI 활용 아이디어 나눔",
+    ],
+  },
+  {
+    id: "2026-07",
+    date: "7.11",
+    type: "워크숍",
+    title: "2차 워크숍 — 바이브 코딩 실전",
+    highlights: [
+      "바이브 코딩 기초부터 배포까지",
+      "수업에 활용 가능한 게임 앱 제작 실습",
+      "프롬프트 기본 전략 공유",
+    ],
   },
 ];
 
@@ -158,5 +190,5 @@ export const championship2026: FeaturedEvent = {
 
 export const activityYears: ActivityYearGroup[] = [
   { year: 2025, activities },
-  { year: 2026, featuredEvent: championship2026 },
+  { year: 2026, activities: activities2026, featuredEvent: championship2026 },
 ];

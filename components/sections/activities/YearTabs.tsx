@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { ActivityYearGroup } from "@/types";
-import { YearTimeline2025 } from "@/components/sections/activities/YearTimeline2025";
+import { YearTimeline } from "@/components/sections/activities/YearTimeline";
 import { ChampionshipEvent } from "@/components/sections/activities/ChampionshipEvent";
 
 export function YearTabs({ years }: { years: ActivityYearGroup[] }) {
@@ -41,7 +41,7 @@ export function YearTabs({ years }: { years: ActivityYearGroup[] }) {
       </div>
 
       <div className="mt-8">
-        {current?.activities && <YearTimeline2025 activities={current.activities} />}
+        {current?.activities && <YearTimeline activities={current.activities} />}
         {current?.featuredEvent && <ChampionshipEvent event={current.featuredEvent} />}
       </div>
     </div>
