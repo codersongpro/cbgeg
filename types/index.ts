@@ -23,6 +23,77 @@ export interface RecurringActivity {
   label: string;
 }
 
+/** One step in "how to join" a featured event (distinct from JoinStep, the
+ * community's general membership-join flow). */
+export interface EventJoinStep {
+  id: string;
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface EventLeague {
+  id: string;
+  name: string;
+  tagline: string;
+  approach: string;
+  workshop?: string;
+  award: string;
+}
+
+export interface EventScheduleItem {
+  id: string;
+  time: string;
+  title: string;
+  description: string;
+}
+
+export interface EventAward {
+  id: string;
+  label: string;
+}
+
+export interface EventRoadmapStep {
+  id: string;
+  year: string;
+  yearLabel: string;
+  description: string;
+}
+
+/**
+ * A single big, structured upcoming event — distinct from ActivityItem
+ * because it carries multi-section rich content, not a simple
+ * date/title/highlights record.
+ */
+export interface FeaturedEvent {
+  id: string;
+  year: number;
+  name: string;
+  aliasName?: string;
+  coOrganizer: string;
+  audience: string;
+  scheduleNote: string;
+  venueNote: string;
+  premiseIntro: string;
+  problems: string[];
+  philosophy: string;
+  joinSteps: EventJoinStep[];
+  leagues: EventLeague[];
+  finalRound: { title: string; description: string };
+  schedule: EventScheduleItem[];
+  judgingSystem: { title: string; description: string };
+  awards: EventAward[];
+  keyMessages: string[];
+  roadmap: EventRoadmapStep[];
+}
+
+/** One year's worth of content for the year-tabbed Activities section. */
+export interface ActivityYearGroup {
+  year: number;
+  activities?: ActivityItem[];
+  featuredEvent?: FeaturedEvent;
+}
+
 export interface SubGroupTopic {
   id: string;
   title: string;

@@ -1,21 +1,13 @@
 import { CalendarClock, Video, BadgeCheck, Building2, Presentation, Users2 } from "lucide-react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
-import { activities, recurringActivities } from "@/lib/content/activities";
+import { activityYears, recurringActivities } from "@/lib/content/activities";
+import { YearTabs } from "@/components/sections/activities/YearTabs";
 
 const recurringIcons: Record<string, typeof CalendarClock> = {
   quarterly: CalendarClock,
   online: Video,
   certification: BadgeCheck,
   expo: Building2,
-};
-
-const typeVariant: Record<string, "primary" | "amber" | "green" | "coral"> = {
-  세미나: "primary",
-  방문: "amber",
-  워크숍: "green",
-  연수: "coral",
 };
 
 const highlightTiles = [
@@ -35,8 +27,8 @@ export function ActivitiesTimeline() {
           꾸준히, 그러나 유쾌하게
         </h2>
         <p className="mt-5 text-base leading-relaxed text-ink-muted">
-          정기 세미나부터 기업 방문, 워크숍까지 — 충북 GEG가 한 해 동안 함께한
-          활동들입니다.
+          정기 세미나부터 기업 방문, 워크숍까지 — 그리고 2026년의 새로운
+          도전까지. 연도별로 만나보세요.
         </p>
       </Reveal>
 
@@ -70,40 +62,7 @@ export function ActivitiesTimeline() {
         })}
       </RevealGroup>
 
-      <div className="relative mt-14">
-        <div className="absolute bottom-0 left-4 top-0 w-px bg-border sm:left-20" />
-
-        <ul className="space-y-10">
-          {activities.map((activity) => (
-            <Reveal key={activity.id} as="li" className="relative pl-10 sm:pl-32">
-              <span className="absolute left-4 top-1.5 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-primary bg-surface sm:left-20" />
-              <span className="absolute left-0 top-0 hidden text-sm font-bold text-ink-muted sm:block sm:w-14">
-                {activity.date}
-              </span>
-
-              <Card className="hover:-translate-y-1 hover:shadow-md">
-                <div className="flex flex-wrap items-center gap-3">
-                  <Badge variant={typeVariant[activity.type]}>{activity.type}</Badge>
-                  <span className="text-sm font-semibold text-ink-muted sm:hidden">
-                    {activity.date}
-                  </span>
-                </div>
-                <CardTitle className="mt-3">{activity.title}</CardTitle>
-                <ul className="mt-3 space-y-1.5">
-                  {activity.highlights.map((highlight) => (
-                    <li
-                      key={highlight}
-                      className="text-sm leading-relaxed text-ink-muted before:mr-2 before:content-['·']"
-                    >
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
+      <YearTabs years={activityYears} />
     </section>
   );
 }
